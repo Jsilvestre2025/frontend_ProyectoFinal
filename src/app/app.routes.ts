@@ -9,9 +9,9 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'admin', component: Admin },
   { path: 'user', component: User },
-  { path: 'books/add', component: BookFormComponent,
-        data: { renderMode: 'csr' } },
-  { path: 'books/edit/:id', component: BookFormComponent },
+  { path: 'books/add', component: BookFormComponent},
+  { path: 'books/edit/:id', component: BookFormComponent,
+        data: { renderMode: 'csr' }  },
   { path: 'users', component: UserAdmin },
   { path: '**', redirectTo: '/login' }
 ];
