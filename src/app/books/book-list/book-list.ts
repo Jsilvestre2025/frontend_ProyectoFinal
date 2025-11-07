@@ -18,7 +18,7 @@ export class BookListComponent implements OnInit {
   filteredBooks = signal<Book[]>([]);
   loading = signal(false);
   error = signal('');
-  // 3. NUEVAS SIGNALS PARA CONTROLAR LA VISTA
+  //NUEVAS SIGNALS PARA CONTROLAR LA VISTA
   viewMode = signal<'list' | 'form'>('list'); // 'list' o 'form'
   currentBookId = signal<string | null>(null); // ID del libro a editar
   constructor(
@@ -69,11 +69,11 @@ export class BookListComponent implements OnInit {
     this.currentBookId.set(id); // Guarda el ID del libro a editar
     this.viewMode.set('form'); // Cambia la vista al formulario
   }
-  // 5. FUNCIÓN PARA VOLVER A LA LISTA
+  // FUNCIÓN PARA VOLVER A LA LISTA
   // Esta se llamará desde el componente hijo (el formulario)
   onFormClosed() {
-    this.viewMode.set('list'); // 1. Cambia la vista de vuelta a 'list'
-    this.loadBooks(); // 2. Recarga los libros por si hay nuevos datos
+    this.viewMode.set('list'); //Cambia la vista de vuelta a 'list'
+    this.loadBooks(); //Recarga los libros por si hay nuevos datos
   }
   deleteBook(id: string, title: string) {
     if (confirm(`¿Está seguro de eliminar el libro "${title}"?`)) {

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { BookService, Book } from '../../services/books';
 
 @Component({
@@ -16,10 +15,10 @@ export class BookFormComponent implements OnInit {
   isEditMode = signal(false);
   loading = signal(false);
   error = signal('');
-  // 3. RECIBE EL ID DEL PADRE (BookListComponent)
+  //RECIBE EL ID DEL PADRE (BookListComponent)
   @Input() bookId: string | null = null; 
 
-  // 4. EMITE UN EVENTO AL PADRE CUANDO TERMINA
+  //EMITE UN EVENTO AL PADRE CUANDO TERMINA
   @Output() formClosed = new EventEmitter<void>();
   constructor(
     private fb: FormBuilder,

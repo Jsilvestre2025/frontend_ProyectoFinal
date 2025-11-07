@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environments/environment';
 export interface Book {
   _id?: string;
   title: string;
@@ -26,7 +26,7 @@ export interface BookResponse {
   providedIn: 'root'
 })
 export class BookService {
-  private apiUrl = 'http://localhost:3000/api/libros';
+  private apiUrl = environment.apiUrl + '/libros';
   
   // Signal para mantener la lista de libros
   books = signal<Book[]>([]);

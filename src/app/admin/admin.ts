@@ -1,7 +1,6 @@
 import { Component, input, signal, computed } from '@angular/core';
 import { AuthService } from '../services/auth';
 import { CommonModule } from '@angular/common';
-import { BotonPersonalizado } from '../boton-personalizado/boton-personalizado';
 import { BookListComponent } from '../books/book-list/book-list';
 import { LoansAdminComponent } from '../books/loans-admin/loans-admin';
 import { UserAdmin } from "../user-interfas/user-admin/user-admin";

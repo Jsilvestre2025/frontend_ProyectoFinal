@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../environments/environment';
 export interface Loan {
   _id?: string;
   bookId: any;
@@ -24,7 +24,7 @@ export interface LoanResponse {
   providedIn: 'root'
 })
 export class LoanService {
-  private apiUrl = 'http://localhost:3000/api/prestamos';
+  private apiUrl = environment.apiUrl + '/prestamos';
   
   loans = signal<Loan[]>([]);
 
