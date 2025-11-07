@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="card shadow-lg border-0 rounded-4 admin-panel">
+    <div class="card-header bg-transparent border-bottom pb-3">
+      <h2 class="card-title h3 text-dark mb-3">{{ welcomeTitle() }}</h2>
+      <div class="d-flex flex-wrap gap-3">
+        <span class="text-muted">🕒 Último acceso: {{ formattedLastLogin() }}</span>
+      </div>
+      <!-- @if (authService.isLoggedIn()) {
+      <button class="btn btn-danger btn-lg rounded-pill" (click)="logout()">
+        🚪 Cerrar Sesión
+      </button>
+  } -->
+    </div>
+
+    <div class="card-body p-4">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="nav flex-column nav-pills" role="tablist">
+            <button
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'Libros'"
+              (click)="changeSection('Libros')"
+            >
+              📊 Libros
+            </button>
+            <button
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'Usuarios'"
+              (click)="changeSection('Usuarios')"
+            >
+              👥 Usuarios
+            </button>
+            <button
+              class="nav-link text-start mb-2"
+              [class.active]="activeSection() === 'Prestamos'"
+              (click)="changeSection('Prestamos')"
+            >
+              ⚙️ Prestamos
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <div class="mb-4">
+            <h3 class="h4 text-dark">{{ sectionTitle() }}</h3>
+          </div>
+
+          <div class="section-content">
+            @switch (activeSection()) { @case ('Libros') {
+            <div class="row g-10 mb-10">
+              <div class="col-md-10 col-lg-12">
+                <div class="card bg-primary text-white h-100">
+                  <div class="card-body text-center">
+                    <app-book-list></app-book-list>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+        
+            } @case ('Usuarios') {
+              <app-user-admin></app-user-admin>
+            <!-- <div class="table-responsive mb-4">
+              <table class="table table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>👤 Juan Pérez</td>
+                    <td>juan@email.com</td>
+                    <td><span class="badge bg-success">✅ Activo</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>👤 María García</td>
+                    <td>maria@email.com</td>
+                    <td><span class="badge bg-danger">❌ Inactivo</span></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mb-3">
+              <app-boton-personalizado
+                texto="➕ Nuevo Usuario"
+                variante="primary"
+                (click)="performAction('Crear Usuario')"
+              ></app-boton-personalizado>
+            </div> -->
+            } @case ('Prestamos') {
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-12">
+                  <div class="card-header">
+                    <h5 class="card-title mb-0">🔧 Prestamos</h5>
+                  </div>
+                  <div class="card-body">
+                    <app-loans-admin></app-loans-admin>
+              
+                  </div>
+                </div>
+              </div>
+
+          
+            </div>
+            } }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

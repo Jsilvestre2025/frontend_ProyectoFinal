@@ -1,0 +1,83 @@
+<div class="loans-container">
+  <h2>Mis Préstamos</h2>
+
+  @if (loading()) {
+    <div class="loading">Cargando préstamos...</div>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab() === 'active'"
+      (click)="changeTab('active')">
+      Activos ({{ filteredLoans().length }})
+    </button>
+    <button 
+      [class.active]="activeTab() === 'returned'"
+      (click)="changeTab('returned')">
+      Devueltos
+    </button>
+  </div>
+
+  <!-- Tabla de préstamos -->
+  <div class="loans-table">
+    @if (filteredLoans().length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Autor</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (loan of filteredLoans(); track loan._id) {
+            <tr [class.overdue]="isOverdue(loan.dueDate)">
+              <td>{{ loan.bookId?.title || 'Libro eliminado' }}</td>
+              <td>{{ loan.bookId?.author || 'N/A' }}</td>
+              <td>{{ formatDate(loan.loanDate) }}</td>
+              <td>
+                {{ formatDate(loan.dueDate) }}
+                @if (activeTab() === 'active' && !isOverdue(loan.dueDate)) {
+                  <span class="days-left">({{ getDaysUntilDue(loan.dueDate) }} días)</span>
+                }
+                @if (isOverdue(loan.dueDate) && activeTab() === 'active') {
+                  <span class="overdue-badge">¡Vencido!</span>
+                }
+              </td>
+              <td>
+                <span [class]="'status-' + loan.status">
+                  {{ loan.status === 'active' ? 'Activo' : 'Devuelto' }}
+                </span>
+              </td>
+              <td>
+                @if (activeTab() === 'active') {
+                  <button 
+                    class="btn-return"
+                    (click)="returnBook(loan._id!)">
+                    Devolver
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <div class="no-loans">
+        @if (activeTab() === 'active') {
+          No tienes préstamos activos
+        } @else {
+          No hay préstamos devueltos
+        }
+      </div>
+    }
+  </div>
+</div>

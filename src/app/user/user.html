@@ -1,0 +1,19 @@
+<div class="student-container">
+  <div class="header">
+    <h1>Biblioteca</h1>
+    <div class="user-info">
+      <span>Bienvenido, {{ authService.currentUser()?.name }}</span>
+      <!-- <button class="btn btn-danger btn-lg rounded-pill" (click)="logout()">
+        🚪 Cerrar Sesión
+      </button> -->
+    </div>
+  </div>
+
+  <div class="course-list">
+    <app-book-list></app-book-list>
+  </div>
+  <div class="course-list">
+    <app-loan-management></app-loan-management>
+    <br>
+  </div>
+</div>

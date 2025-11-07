@@ -1,0 +1,106 @@
+<div class="loans-admin-container">
+  <h2>Gestión de Préstamos</h2>
+
+  @if (error()) {
+    <div class="error-message">{{ error() }}</div>
+  }
+
+  <!-- Formulario para crear préstamo -->
+  <div class="create-loan-form">
+    <h3>Crear Nuevo Préstamo</h3>
+    
+    <div class="form-row">
+      <select [(ngModel)]="selectedBookId">
+        <option value="">Seleccione un libro</option>
+        @for (book of books(); track book._id) {
+          <option [value]="book._id">
+            {{ book.title }} ({{ book.stock }} disponibles)
+          </option>
+        }
+      </select>
+
+      <select [(ngModel)]="selectedUserId">
+        <option value="">Seleccione un Usuario</option>
+        @for (user of users(); track user._id) {
+          <option [value]="user._id">
+            {{ user.name }} ({{ user.email }})
+          </option>
+        }
+      </select>
+
+      <input type="number" [(ngModel)]="dueDays" min="1" max="30" placeholder="Días de préstamo">
+
+      <button (click)="createLoan()" class="btn-create">Crear Préstamo</button>
+    </div>
+  </div>
+
+  <!-- Tabla de préstamos activos -->
+  <div class="loans-table">
+    <h3>Préstamos Activos ({{ getActiveLoans().length }})</h3>
+    @if (getActiveLoans().length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Estudiante</th>
+            <th>Email</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (loan of getActiveLoans(); track loan._id) {
+            <tr>
+              <td>{{ loan.bookId?.title || 'Libro eliminado' }}</td>
+              <td>{{ loan.userId?.name || 'Usuario desconocido' }}</td>
+              <td>{{ loan.userId?.email || 'N/A' }}</td>
+              <td>{{ formatDate(loan.loanDate) }}</td>
+              <td>{{ formatDate(loan.dueDate) }}</td>
+              <td><span class="status-active">Activo</span></td>
+              <td>
+                <button class="btn-return" (click)="returnLoan(loan._id!)">
+                  Registrar Devolución
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>No hay préstamos activos</p>
+    }
+  </div>
+
+  <!-- Tabla de préstamos devueltos -->
+  <div class="loans-table" style="margin-top: 2rem;">
+    <h3>Préstamos Devueltos ({{ getReturnedLoans().length }})</h3>
+    @if (getReturnedLoans().length > 0) {
+      <table>
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Estudiante</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución Esperada</th>
+            <th>Fecha Devolución Real</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (loan of getReturnedLoans(); track loan._id) {
+            <tr>
+              <td>{{ loan.bookId?.title || 'Libro eliminado' }}</td>
+              <td>{{ loan.userId?.name || 'Usuario desconocido' }}</td>
+              <td>{{ formatDate(loan.loanDate) }}</td>
+              <td>{{ formatDate(loan.dueDate) }}</td>
+              <td>{{ formatDate(loan.returnDate!) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <p>No hay préstamos devueltos</p>
+    }
+  </div>
+</div>

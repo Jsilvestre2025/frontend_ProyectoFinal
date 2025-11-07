@@ -1,0 +1,65 @@
+<div class="book-list-container">
+  <div class="header">
+    <h2>Catálogo de Libros</h2>
+    @if (authService.currentUser()?.role === 'admin') {
+      <button class="btn-primary" (click)="addBook()">+ Agregar Libro</button>
+    }
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      placeholder="Buscar por título, autor o categoría..." 
+      [(ngModel)]="searchTerm"
+      (input)="filterBooks()">
+  </div>
+
+  <!-- Mensajes de estado -->
+  @if (loading()) {
+    <div class="loading">Cargando libros...</div>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  <!-- Grid de libros -->
+  <div class="books-grid">
+    @for (book of filteredBooks(); track book._id) {
+      <div class="book-card">
+        <div class="book-info">
+          <h3>{{ book.title }}</h3>
+          <p class="author">{{ book.author }}</p>
+          <p class="category">Categoría: {{ book.category }}</p>
+          <p class="year">Año: {{ book.publishYear }}</p>
+          <p class="availability" [class.unavailable]="book.stock === 0">
+            Disponibles: {{ book.stock }} / {{ book.totalCopies }}
+          </p>
+          @if (book.description) {
+            <p class="description">{{ book.description }}</p>
+          }
+        </div>
+        
+        <div class="book-actions">
+          @if (authService.currentUser()?.role === 'admin') {
+            <button class="btn-edit" (click)="editBook(book._id!)">Editar</button>
+            <button class="btn-danger" (click)="deleteBook(book._id!, book.title)">
+              Eliminar
+            </button>
+          }
+        </div>
+      </div>
+    } @empty {
+      @if (!loading()) {
+        <div class="no-results">
+          @if (searchTerm) {
+            No se encontraron libros que coincidan con "{{ searchTerm }}"
+          } @else {
+            No hay libros disponibles en el catálogo
+          }
+        </div>
+      }
+    }
+  </div>
+</div>

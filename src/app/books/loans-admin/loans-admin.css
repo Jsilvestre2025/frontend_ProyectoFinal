@@ -1,0 +1,191 @@
+.loans-admin-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  margin-top: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.loans-admin-container h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.loans-admin-container h3 {
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.create-loan-form {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007bff;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+select, input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+select:focus, input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.btn-create {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.btn-create:hover {
+  background-color: #0056b3;
+}
+
+.btn-create:active {
+  transform: scale(0.98);
+}
+
+.loans-table {
+  margin-top: 2rem;
+}
+
+.loans-table p {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+thead {
+  background-color: #343a40;
+  color: white;
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #dee2e6;
+}
+
+td {
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+}
+
+tbody tr {
+  transition: background-color 0.2s;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fafbfc;
+}
+
+.status-active {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status-returned {
+  background-color: #e2e3e5;
+  color: #383d41;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-return {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.btn-return:hover {
+  background-color: #218838;
+}
+
+.btn-return:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .loans-admin-container {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 0.75rem;
+  }
+}

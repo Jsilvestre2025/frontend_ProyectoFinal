@@ -1,0 +1,11 @@
+<button 
+  [type]="tipo()"
+  [disabled]="deshabilitado() || cargando()"
+  [class]="'btn btn-lg rounded-pill w-100 btn-' + variante() + (cargando() ? ' btn-loading' : '')"
+  (click)="onClick($event)"
+>
+  @if (cargando()) {
+    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+  }
+  <span [class.visually-hidden]="cargando()">{{ texto() }}</span>
+</button>

@@ -1,0 +1,31 @@
+/* Animación de entrada para el panel */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.admin-panel {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Animación para el contenido de las secciones */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.section-content {
+  animation: slideIn 0.4s ease-out;
+}

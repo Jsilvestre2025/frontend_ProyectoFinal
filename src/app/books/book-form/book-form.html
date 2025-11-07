@@ -1,0 +1,134 @@
+<div class="form-container">
+  <h2>{{ isEditMode() ? 'Editar' : 'Agregar' }} Libro</h2>
+
+  @if (loading()) {
+    <div class="loading">Cargando...</div>
+  }
+
+  @if (error()) {
+    <div class="error-message">{{ error() }}</div>
+  }
+
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <!-- Título -->
+    <div class="form-group">
+      <label for="title">Título *</label>
+      <input 
+        type="text" 
+        id="title"
+        formControlName="title"
+        [class.invalid]="isFieldInvalid('title')">
+      @if (isFieldInvalid('title')) {
+        <span class="error-text">{{ getErrorMessage('title') }}</span>
+      }
+    </div>
+
+    <!-- Autor -->
+    <div class="form-group">
+      <label for="author">Autor *</label>
+      <input 
+        type="text" 
+        id="author"
+        formControlName="author"
+        [class.invalid]="isFieldInvalid('author')">
+      @if (isFieldInvalid('author')) {
+        <span class="error-text">{{ getErrorMessage('author') }}</span>
+      }
+    </div>
+
+    <!-- ISBN -->
+    <div class="form-group">
+      <label for="isbn">ISBN *</label>
+      <input 
+        type="text" 
+        id="isbn"
+        formControlName="isbn"
+        placeholder="978-0123456789"
+        [class.invalid]="isFieldInvalid('isbn')">
+      @if (isFieldInvalid('isbn')) {
+        <span class="error-text">{{ getErrorMessage('isbn') }}</span>
+      }
+    </div>
+
+    <!-- Categoría -->
+    <div class="form-group">
+      <label for="category">Categoría *</label>
+      <select 
+        id="category"
+        formControlName="category"
+        [class.invalid]="isFieldInvalid('category')">
+        <option value="">Seleccione una categoría</option>
+        <option value="Literatura">Literatura</option>
+        <option value="Ficción">Ficción</option>
+        <option value="Ciencia">Ciencia</option>
+        <option value="Historia">Historia</option>
+        <option value="Infantil">Infantil</option>
+        <option value="Clásicos">Clásicos</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Filosofía">Filosofía</option>
+      </select>
+      @if (isFieldInvalid('category')) {
+        <span class="error-text">{{ getErrorMessage('category') }}</span>
+      }
+    </div>
+
+    <!-- Año de Publicación -->
+    <div class="form-group">
+      <label for="publishYear">Año de Publicación *</label>
+      <input 
+        type="number" 
+        id="publishYear"
+        formControlName="publishYear"
+        [class.invalid]="isFieldInvalid('publishYear')">
+      @if (isFieldInvalid('publishYear')) {
+        <span class="error-text">{{ getErrorMessage('publishYear') }}</span>
+      }
+    </div>
+
+    <!-- Copias Totales -->
+    <div class="form-group">
+      <label for="totalCopies">Copias Totales *</label>
+      <input 
+        type="number" 
+        id="totalCopies"
+        formControlName="totalCopies"
+        [class.invalid]="isFieldInvalid('totalCopies')">
+      @if (isFieldInvalid('totalCopies')) {
+        <span class="error-text">{{ getErrorMessage('totalCopies') }}</span>
+      }
+    </div>
+
+    <!-- Copias Disponibles -->
+    <div class="form-group">
+      <label for="availableCopies">Copias Disponibles *</label>
+      <input 
+        type="number" 
+        id="availableCopies"
+        formControlName="availableCopies"
+        [class.invalid]="isFieldInvalid('availableCopies')">
+      @if (isFieldInvalid('availableCopies')) {
+        <span class="error-text">{{ getErrorMessage('availableCopies') }}</span>
+      }
+    </div>
+
+    <!-- Descripción -->
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <textarea 
+        id="description"
+        formControlName="description"
+        rows="4"
+        placeholder="Descripción del libro..."></textarea>
+    </div>
+
+    <!-- Botones -->
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" [disabled]="loading()">
+        {{ loading() ? 'Guardando...' : 'Guardar' }}
+      </button>
+      <button type="button" class="btn-secondary" (click)="cancel()" [disabled]="loading()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

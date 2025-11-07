@@ -1,0 +1,163 @@
+.book-list-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.search-bar {
+  margin-bottom: 2rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.loading, .error, .no-results {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.book-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.book-info h3 {
+  margin: 0 0 0.75rem 0;
+  color: #333;
+  font-size: 1.25rem;
+}
+
+.author {
+  color: #666;
+  margin: 0.25rem 0;
+  font-weight: 500;
+}
+
+.category, .year {
+  color: #999;
+  font-size: 0.9rem;
+  margin: 0.25rem 0;
+}
+
+.availability {
+  font-weight: bold;
+  color: #28a745;
+  margin: 0.75rem 0;
+  padding: 0.5rem;
+  background-color: #d4edda;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.availability.unavailable {
+  color: #dc3545;
+  background-color: #f8d7da;
+}
+
+.description {
+  margin: 1rem 0 0 0;
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.book-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.book-actions button {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
+}
+
+.book-actions button:hover {
+  opacity: 0.8;
+}
+
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .books-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
