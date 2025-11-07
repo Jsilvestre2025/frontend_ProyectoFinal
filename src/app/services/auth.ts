@@ -1,7 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, Inject, PLATFORM_ID  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
+import { isPlatformBrowser } from '@angular/common';
 export interface User {
   id: string;
   username: string;
@@ -25,7 +26,10 @@ export class AuthService {
   currentUser = signal<User | null>(null);
   isLoggedIn = signal<boolean>(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   login(username: string, password: string): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, {
@@ -37,20 +41,26 @@ export class AuthService {
   setUser(user: User) {
     this.currentUser.set(user);
     this.isLoggedIn.set(true);
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
   }
 
   logout() {
     this.currentUser.set(null);
     this.isLoggedIn.set(false);
-    localStorage.removeItem('currentUser');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('currentUser');
+    }
   }
 
   checkStoredUser() {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      this.setUser(user);
+    if (isPlatformBrowser(this.platformId)) {
+      const storedUser = localStorage.getItem('currentUser');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        this.setUser(user);
+      }
     }
   }
   getStudents(): Observable<{ success: boolean; users?: any[] }> {
