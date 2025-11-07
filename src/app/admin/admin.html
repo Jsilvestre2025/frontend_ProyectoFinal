@@ -5,11 +5,6 @@
       <div class="d-flex flex-wrap gap-3">
         <span class="text-muted">🕒 Último acceso: {{ formattedLastLogin() }}</span>
       </div>
-      <!-- @if (authService.isLoggedIn()) {
-      <button class="btn btn-danger btn-lg rounded-pill" (click)="logout()">
-        🚪 Cerrar Sesión
-      </button>
-  } -->
     </div>
 
     <div class="card-body p-4">
@@ -61,44 +56,6 @@
         
             } @case ('Usuarios') {
               <app-user-admin></app-user-admin>
-            <!-- <div class="table-responsive mb-4">
-              <table class="table table-hover">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Usuario</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>👤 Juan Pérez</td>
-                    <td>juan@email.com</td>
-                    <td><span class="badge bg-success">✅ Activo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>👤 María García</td>
-                    <td>maria@email.com</td>
-                    <td><span class="badge bg-danger">❌ Inactivo</span></td>
-                    <td>
-                      <button class="btn btn-sm btn-outline-primary">✏️ Editar</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="mb-3">
-              <app-boton-personalizado
-                texto="➕ Nuevo Usuario"
-                variante="primary"
-                (click)="performAction('Crear Usuario')"
-              ></app-boton-personalizado>
-            </div> -->
             } @case ('Prestamos') {
             <div class="row">
               <div class="col-md-12">

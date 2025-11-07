@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,23 +14,21 @@ import { BookService, Book } from '../../services/books';
 export class BookFormComponent implements OnInit {
   bookForm!: FormGroup;
   isEditMode = signal(false);
-  bookId: string | null = null;
   loading = signal(false);
   error = signal('');
+  // 3. RECIBE EL ID DEL PADRE (BookListComponent)
+  @Input() bookId: string | null = null; 
 
+  // 4. EMITE UN EVENTO AL PADRE CUANDO TERMINA
+  @Output() formClosed = new EventEmitter<void>();
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,
-    private route: ActivatedRoute,
-    private router: Router
   ) {
     this.initForm();
   }
 
   ngOnInit() {
-    // Obtener el ID del libro desde la URL
-    this.bookId = this.route.snapshot.paramMap.get('id');
-
     if (this.bookId) {
       this.isEditMode.set(true);
       this.loadBook();
@@ -91,7 +89,7 @@ export class BookFormComponent implements OnInit {
           this.loading.set(false);
           if (response.success) {
             alert('Libro actualizado exitosamente');
-            this.router.navigate(['/admin']);
+            this.formClosed.emit();
           }
         },
         error: (err) => {
@@ -107,7 +105,7 @@ export class BookFormComponent implements OnInit {
           this.loading.set(false);
           if (response.success) {
             alert('Libro creado exitosamente');
-            this.router.navigate(['/admin']);
+            this.formClosed.emit();
           }
         },
         error: (err) => {
@@ -126,7 +124,7 @@ export class BookFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/admin']);
+    this.formClosed.emit();
   }
 
   // Marcar todos los campos como tocados para mostrar errores

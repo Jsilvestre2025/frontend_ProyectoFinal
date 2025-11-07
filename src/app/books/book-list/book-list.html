@@ -1,8 +1,9 @@
+@if (viewMode() === 'list') {
 <div class="book-list-container">
   <div class="header">
     <h2>Catálogo de Libros</h2>
     @if (authService.currentUser()?.role === 'admin') {
-      <button class="btn-primary" (click)="addBook()">+ Agregar Libro</button>
+      <button class="btn-primary" (click)="showAddForm()">+ Agregar Libro</button>
     }
   </div>
 
@@ -43,7 +44,7 @@
         
         <div class="book-actions">
           @if (authService.currentUser()?.role === 'admin') {
-            <button class="btn-edit" (click)="editBook(book._id!)">Editar</button>
+            <button class="btn-edit" (click)="showEditForm(book._id!)">Editar</button>
             <button class="btn-danger" (click)="deleteBook(book._id!, book.title)">
               Eliminar
             </button>
@@ -63,3 +64,10 @@
     }
   </div>
 </div>
+
+} @else {
+<app-book-form 
+    [bookId]="currentBookId()" 
+    (formClosed)="onFormClosed()"> 
+  </app-book-form>
+}

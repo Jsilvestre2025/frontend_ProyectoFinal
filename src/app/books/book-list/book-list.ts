@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookService, Book } from '../../services/books';
 import { AuthService } from '../../services/auth';
+import { BookFormComponent } from '../book-form/book-form';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BookFormComponent],
   templateUrl: './book-list.html',
   styleUrl: './book-list.css'
 })
@@ -17,11 +18,12 @@ export class BookListComponent implements OnInit {
   filteredBooks = signal<Book[]>([]);
   loading = signal(false);
   error = signal('');
-
+  // 3. NUEVAS SIGNALS PARA CONTROLAR LA VISTA
+  viewMode = signal<'list' | 'form'>('list'); // 'list' o 'form'
+  currentBookId = signal<string | null>(null); // ID del libro a editar
   constructor(
     public bookService: BookService,
     public authService: AuthService,
-    private router: Router
   ) {}
 
   ngOnInit() {
@@ -58,14 +60,21 @@ export class BookListComponent implements OnInit {
     this.filteredBooks.set(filtered);
   }
 
-  addBook() {
-    this.router.navigate(['/books/add']); //
+  showAddForm() {
+    this.currentBookId.set(null); // No hay ID porque es un libro nuevo
+    this.viewMode.set('form'); // Cambia la vista al formulario
   }
 
-  editBook(id: string) {
-    this.router.navigate(['/books/edit', id]); //
+  showEditForm(id: string) {
+    this.currentBookId.set(id); // Guarda el ID del libro a editar
+    this.viewMode.set('form'); // Cambia la vista al formulario
   }
-
+  // 5. FUNCIÓN PARA VOLVER A LA LISTA
+  // Esta se llamará desde el componente hijo (el formulario)
+  onFormClosed() {
+    this.viewMode.set('list'); // 1. Cambia la vista de vuelta a 'list'
+    this.loadBooks(); // 2. Recarga los libros por si hay nuevos datos
+  }
   deleteBook(id: string, title: string) {
     if (confirm(`¿Está seguro de eliminar el libro "${title}"?`)) {
       this.bookService.deleteBook(id).subscribe({

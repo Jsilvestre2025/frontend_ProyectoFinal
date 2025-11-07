@@ -53,8 +53,4 @@ export class Admin {
   performAction(action: string) {
     alert(`Acción ejecutada: ${action}`);
   }
-  // logout() {
-  //   this.authService.logout();
-  //   this.router.navigate(['/login']); 
-  // }
 }
